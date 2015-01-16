@@ -1,0 +1,20 @@
+{
+  "name": "lengGreen",
+  "version": "1.0.0",
+  "description": "Lend Green (Development)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "elementtree": "^0.1.6",
+    "express": "^4.11.0",
+    "express.io": "^1.1.13",
+    "xml-writer": "^1.6.0",
+    "xml2js": "^0.4.4",
+    "xmlbuilder": "^2.4.5"
+  }
+}

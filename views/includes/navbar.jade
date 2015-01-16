@@ -1,0 +1,31 @@
+button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+  span.sr-only Toggle navigation
+  span.icon-bar
+  span.icon-bar
+  span.icon-bar
+a.navbar-brand(href='/') Home
+  nav.collapse.navbar-collapse(role='navigation')
+ul.nav.navbar-nav
+  li
+    a(href='#') How it works
+  li
+    a(href='#') Apply now
+  li
+    a(href='#') FAQ
+  li
+    a(href='#') Rates
+  li
+    a(href='#') Learn More
+  li
+    a(href='#') Terms&Conditions
+  li
+    a(href='#') Contact Us                                          
+ul.nav.navbar-right.navbar-nav
+  li.dropdown
+    a.dropdown-toggle(href='#', data-toggle='dropdown')
+      //- i.glyphicon.glyphicon-search
+    ul.dropdown-menu(style='padding:12px;')
+      form.form-inline
+        button.btn.btn-default.pull-right(type='submit')
+          i.glyphicon.glyphicon-search
+        input.form-control.pull-left(type='text', placeholder='Search')

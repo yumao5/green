@@ -1,0 +1,59 @@
+
+html(lang='en')
+head
+    meta(http-equiv='content-type', content='text/html; charset=UTF-8')
+    meta(charset='utf-8')
+    title Lendgreen
+
+    meta(name='generator', content='Bootply')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css', rel='stylesheet')
+
+    //if lt IE 9
+    script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
+    link(href='css/styles.css', rel='stylesheet')
+
+  body
+    header.navbar.navbar-bright.navbar-fixed-top(role='banner')
+      .container
+        .navbar-header
+          include includes/navbar.jade  
+    #masthead
+      .container
+        .row
+          .col-md-7
+            h1
+              | Lendgreen
+              p.lead
+          .col-md-5
+            .well.well-lg
+              .row
+                .col-sm-12
+      // /cont
+      .container
+        .row
+          .col-md-12
+            .top-spacer  
+      // /cont
+    .container
+      .row
+        .col-md-12
+          .panel
+            .panel-body
+              // /stories
+              include includes/story.jade  
+              // /stories
+              a.btn.btn-primary.pull-right.btnNext(href='/')
+                | More 
+                
+        // /col-12
+    hr
+    include includes/social.jade  
+    hr
+    hr
+    include includes/footer.jade  
+
+    // script references
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js')
+    script(src='js/bootstrap.min.js')
