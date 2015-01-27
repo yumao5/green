@@ -6,7 +6,9 @@ var path = require('path');
 var colors = require('colors');
 var http = require('https');
 var MongoStore = require('connect-mongo')(session);
+//var geoip = require('geoip-lite');
 //var mongoose = require('mongoose');
+
 
 var app = express();
 
@@ -46,7 +48,6 @@ app.use(session({
 app.all('*', ensureSecure); // Show info
 
 app.get('/', function (req, res) {
-	  console.log(req.sessionID);
     res.render('index');    
 });
 
@@ -72,6 +73,13 @@ function ensureSecure(req, res, next){
   // console.log(req.headers.referer);
   // console.log(req.stale);
   // console.log(req.headers.cookie);
+  
+  var utp = require('./form/utpTracking');
+  var error =  utp.utpTracking(data);
+
+  //var geo = geoip.lookup(req.ip);
+
+ 
 
   next();
 }
