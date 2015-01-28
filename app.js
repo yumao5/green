@@ -7,6 +7,7 @@ var colors = require('colors');
 var http = require('https');
 var MongoStore = require('connect-mongo')(session);
 //var geoip = require('geoip-lite');
+var fs = require('fs');
 //var mongoose = require('mongoose');
 
 
@@ -45,44 +46,57 @@ app.use(session({
   })    
 );
 
-app.all('*', ensureSecure); // Show info
+// utp checking function, check request header info and request ip info, and then insert info to database 
+function visitorRoutecheck(req, res, next){  
+    
+  var utpInfo = require('./form/utpInfo')(req.headers,req.sessionID,req.ip);     
+  var utp = require('./form/utpTracking');
+  var error =  utp.utpTracking(utpInfo);
+  //console.log(colors.red('Utp tracking data function error :',error));
+  next();
+}
+
+app.all('*', visitorRoutecheck); // Show info
 
 app.get('/', function (req, res) {
     res.render('index');    
 });
 
-function ensureSecure(req, res, next){
-  //console.log(req.headers);
-  // console.log('req.ip :');
-  // console.log(req.ip);
-  // console.log("req.path");
-  // console.log(req.path);
-  // console.log("req.query");
-  // console.log(req.query);
-  // console.log("req.cookies.sid");
-  // console.log(req.cookies);
-  // console.log("req.fresh");
-  // console.log(req.fresh);
-  // console.log("req.protocol");
-  // console.log(req.protocol);
-  // console.log("req.secure");
-  // console.log(req.secure);
-  // console.log("req.originalUrl");
-  // console.log(req.originalUrl);  
-  // console.log("req.referer");
-  // console.log(req.headers.referer);
-  // console.log(req.stale);
-  // console.log(req.headers.cookie);
-  
-  var utp = require('./form/utpTracking');
-  var error =  utp.utpTracking(data);
+var io = require('socket.io')(server);
+io.on('ready', function(req) {    
+    
+    var tempString = '';
+    var emptyString = '';
+    var date = '';
+    var time = '';
 
-  //var geo = geoip.lookup(req.ip);
+    date = new Date();
+    time = date.getTime();
 
- 
+    tempString = fs.readFileSync(path.resolve(__dirname, 'p1.txt'), 'utf8');      
+    fs.writeFileSync(path.resolve(__dirname, 'p1_' + time +'.txt'), tempString); 
 
-  next();
-}
+    // ftp.put(buffer, 'path/to/remote/file.txt', function(hadError) {
+    //   if (!hadError)
+    //     console.log("File transferred successfully!");
+    // });
+
+    fs.writeFileSync(path.resolve(__dirname, 'p1.txt'), emptyString);    
+    fs.writeFileSync(path.resolve(__dirname, 'p1.txt'), req.data.elements);
+    
+    req.io.respond({
+        success: req.data.elements
+    })
+})
+
+app.get('/cms', function (req, res) {
+
+  pData = fs.readFileSync(path.resolve(__dirname, 'public/p1.txt'), 'utf8');  
+  res.render('cms', {pageData : pData});    
+  pData = '';
+  pData = fs.readdir(__dirname, 'utf8' );
+  //console.log(pData);
+});
 
 app.get('/epic', function(req) {
 
