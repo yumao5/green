@@ -52,6 +52,10 @@ html
       });
   body
     br
+    section.text-center      
+      a.btn.btn-primary.pull-center.btnNext(href='/') !{pagelist[0].split('.').shift().toUpperCase()} 
+    br
+    br
     section.text-center
       | !{pageData}
     br
@@ -60,17 +64,22 @@ html
             |#{pageData} 
         br
         br        
-        input#su_btn(type='submit', name='save', value='Submit')
-        input(type='reset', name='reset', value='Reset')
+        input#su_btn(type='submit', name='save', value='Submit & Refresh')
+        //- input(type='reset', name='reset', value='Reset')
     
     script(type='text/javascript').
-      io = io.connect()
+      var socket = io();
       var myInput = ''      
 
       $('#su_btn').click(function(){      
+
         tinyMCE.triggerSave();
-        myInput = $("#elm1").val()
-        io.emit('ready', {'elements': myInput }, function(data) {
-          alert(myInput)
-        })        
-      })  
+        myInput = $("#elm1").val();
+        alert('Updates details:\r\r' + myInput);
+
+        socket.emit('update', {'elements': myInput });               
+      });
+
+      socket.on('done', function(){
+        window.location = window.location.href;
+      });        

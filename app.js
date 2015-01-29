@@ -8,6 +8,7 @@ var http = require('https');
 var MongoStore = require('connect-mongo')(session);
 //var geoip = require('geoip-lite');
 var fs = require('fs');
+var wrench = require("wrench");
 //var mongoose = require('mongoose');
 
 
@@ -62,40 +63,15 @@ app.get('/', function (req, res) {
     res.render('index');    
 });
 
-var io = require('socket.io')(server);
-io.on('ready', function(req) {    
-    
-    var tempString = '';
-    var emptyString = '';
-    var date = '';
-    var time = '';
-
-    date = new Date();
-    time = date.getTime();
-
-    tempString = fs.readFileSync(path.resolve(__dirname, 'p1.txt'), 'utf8');      
-    fs.writeFileSync(path.resolve(__dirname, 'p1_' + time +'.txt'), tempString); 
-
-    // ftp.put(buffer, 'path/to/remote/file.txt', function(hadError) {
-    //   if (!hadError)
-    //     console.log("File transferred successfully!");
-    // });
-
-    fs.writeFileSync(path.resolve(__dirname, 'p1.txt'), emptyString);    
-    fs.writeFileSync(path.resolve(__dirname, 'p1.txt'), req.data.elements);
-    
-    req.io.respond({
-        success: req.data.elements
-    })
-})
-
 app.get('/cms', function (req, res) {
 
-  pData = fs.readFileSync(path.resolve(__dirname, 'public/p1.txt'), 'utf8');  
-  res.render('cms', {pageData : pData});    
-  pData = '';
-  pData = fs.readdir(__dirname, 'utf8' );
-  //console.log(pData);
+  pData = fs.readFileSync(path.resolve(__dirname, 'public/p1.html'), 'utf8');    
+  
+  var files = wrench.readdirSyncRecursive('public/pages/',0700);
+  console.log(files);
+
+  res.render('cms', {pageData : pData, pagelist : files});    
+
 });
 
 app.get('/epic', function(req) {
@@ -182,4 +158,39 @@ app.get('/terms', function (req, res) {
 
 app.get('/contact', function (req, res) {
 	  res.render('contact'); 
+});
+
+// use socket.io
+var io = require('socket.io')(server);
+
+// io.on('update', function(req) {    
+io.on('connection', function (socket,res) {
+ socket.on('update', function (data) {    
+    var tempString = '';
+    var emptyString = '';
+    var date = '';
+    var time = '';
+
+    date = new Date();
+    time = date.getTime();
+
+    //console.log(time);
+
+    tempString = fs.readFileSync(path.resolve(__dirname, 'public/p1.html'), 'utf8');      
+    fs.writeFileSync(path.resolve(__dirname, 'public/p1_' + time +'.html'), tempString); 
+
+    // ftp.put(buffer, 'path/to/remote/file.txt', function(hadError) {
+    //   if (!hadError)
+    //     console.log("File transferred successfully!");
+    // });
+
+    fs.writeFileSync(path.resolve(__dirname, 'public/p1.html'), emptyString);    
+    fs.writeFileSync(path.resolve(__dirname, 'public/p1.html'), data.elements);
+    
+    socket.emit('done');
+    // req.io.respond({
+    //     success: req.data.elements
+    // })
+ });
+
 });
