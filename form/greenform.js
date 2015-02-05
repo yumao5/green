@@ -1,3 +1,14 @@
+/******************************************************************************
+ *
+ * NAME
+ *   greenform.js
+ *
+ * DESCRIPTION
+ *   Construct test form submit data as object for furthere parser. 
+ *  
+ *****************************************************************************///
+
+
 var Form = function (info) {
 	this.data = {
 		

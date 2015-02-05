@@ -1,8 +1,20 @@
+/******************************************************************************
+ *
+ * NAME
+ *   greenform.js
+ *
+ * DESCRIPTION
+ *   Valiate test data object with rules.
+ *
+ *   When error is not null, error message would be
+ *   sent to front page display.
+ *  
+ *****************************************************************************///
+
 var va = require('validator');
 
 function formValidate (form2) {     
 
-        // Form items Validation
         var error = '';
 
         // Personal information && Contact information           

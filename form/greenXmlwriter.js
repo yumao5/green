@@ -1,6 +1,14 @@
-// XMLWriter
-var XMLWriter = require('xml-writer');
+/******************************************************************************
+ *
+ * NAME
+ *   greenXmlwriter.js
+ *
+ * DESCRIPTION
+ *   Construct test XML data. 
+ *  
+ *****************************************************************************///
 
+var XMLWriter = require('xml-writer');
 
 function xmlWriter (data) {
 
@@ -8,7 +16,7 @@ function xmlWriter (data) {
 	xw.startDocument();
 
 	var error = '';
-
+	
 	xw.startElement('REQUEST','');
 
 		xw.startElement('REFERRAL','');

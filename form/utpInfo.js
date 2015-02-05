@@ -1,3 +1,16 @@
+/******************************************************************************
+ *
+ * NAME
+ *   utpinfo.js
+ *
+ * DESCRIPTION
+ *   build client visit information
+ *
+ *   Parser vistor info from http request header.
+ *   Using 91.207.6.150 as test ip address.
+ *
+ *****************************************************************************///
+
 var geoip = require('geoip-lite');
 
 var utpInfo = function (info,id,ip,state) {

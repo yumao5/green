@@ -1,3 +1,16 @@
+/******************************************************************************
+ *
+ * NAME
+ *   utpTracking.js
+ *
+ * DESCRIPTION
+ *   Insert data to test mysql database columns.
+ *
+ *	 When App collect visitor http request info and submit to this
+ * 	 funcation, it insert to database. 
+ *  
+ *****************************************************************************///
+
 var mysql = require('mysql');
 
 function utpTracking (data) {
@@ -10,7 +23,7 @@ function utpTracking (data) {
 	});
 
 	connection.connect();
-
+	// Test mysql Database schema : ID, NAME, DATE, LOCATION, Date
 	var post  = {  name: data.name, ip: data.ip, referer: data.referer, state: data.state  };
 
   	connection.query('INSERT INTO info SET ?', post, function(err, rows, fields) {
