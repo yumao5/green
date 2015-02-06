@@ -65,9 +65,10 @@ html
         br
         br        
         input#su_btn(type='submit', name='save', value='Submit & Refresh')
-        //- input(type='reset', name='reset', value='Reset')
-    
+        //- input(type='reset', name='reset', value='Reset')    
+
     script(type='text/javascript').
+      // Submit data with socket.io
       var socket = io();
       var myInput = ''      
 
@@ -79,7 +80,7 @@ html
 
         socket.emit('update', {'elements': myInput });               
       });
-
+      // Jump to homepage after submit&refresh
       socket.on('done', function(){
         window.location = window.location.href;
       });        
